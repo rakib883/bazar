@@ -2,6 +2,10 @@ import React, { useState } from 'react'
 import Container from './Container'
 import axios from 'axios';
 import useSWR from 'swr'
+import { FaShoppingCart } from "react-icons/fa";
+import { CiHeart } from "react-icons/ci";
+import { CiSearch } from "react-icons/ci";
+import { GoGitCompare } from "react-icons/go";
 function Product() {
     // const [product,setProduct] = useState([])
     // fetch("https://fakestoreapiserver.reactbd.com/products")
@@ -37,7 +41,7 @@ function Product() {
         {/* product area start */}
         <div className="product-area">
            <Container>
-              <div className="product ">
+              <div className="product grid grid-cols-1 gap-8 lg:grid-cols-4 my-8">
                   {
                     isLoading ? 
                      <div className="loding-area max-w-md mx-auto my-20 bg-red-600">
@@ -46,8 +50,31 @@ function Product() {
                         </div>
                      </div>:
                      data.map((items)=>
-                      <div key={items._id} className="main-area">
-                         
+                      <div key={items?._id} className="border-[1px] border-[#E5E7EB]">
+                         <div className="image-area group h-96 overflow-hidden relative">
+                            <img className="h-full w-full hover:scale-125 cursor-pointer duration-300"  src={items.image} alt="" />
+                            <div className="status group-hover:top-0 duration-300 bg-black/20 absolute top-[100%] w-full h-full ">
+                                <div className="social-icon flex items-center justify-center min-h-screen">
+                                    <ul className="flex gap-2">
+                                        <li className="bg-white p-2"><FaShoppingCart className="text-[26px]" /></li>
+                                        <li className="bg-white p-2"><CiHeart className="text-[26px]" /></li>
+                                        <li className="bg-white p-2"><CiSearch  className="text-[26px]" /></li>
+                                        <li className="bg-white p-2"><GoGitCompare className="text-[26px]" /></li>
+                                    </ul>
+                                </div> 
+
+
+                            </div>
+                         </div>
+                         <div className="image-des px-2 pt-1">
+                            <div className="product-name">
+                                <p className="text-black font-mainFont font-medium">{items?.title}</p>
+                            </div>
+                            <div className="add-to-card"></div>
+                         </div>
+                         <div className="catagory px-2 pb-4">
+                            <p>{items?.category}</p>
+                         </div>
                       </div>
                     ) 
                   }
