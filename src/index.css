@@ -1,0 +1,23 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+@layer base {
+    @font-face {
+      font-family: 'Caveat';
+      font-style: normal;
+      font-weight: 400;
+      font-display: swap;
+      src: url(/src/Style/Wnz6HAc5bAfYB2Q7YjYYmg8.woff2) format('woff2');
+    }
+  }
+
+
+  @layer utilities  {
+    .location {
+      @apply text-[16px] font-mainFont font-medium text-[#9299A4];
+    }
+    
+
+  }
