@@ -9,6 +9,8 @@ import {
 import "./index.css";
 import App from './App';
 import Home from './Page/Home';
+import SingleProduct from './Page/SingleProduct';
+import NotFound from './Page/NotFound';
 
 const router = createBrowserRouter([
   {
@@ -18,6 +20,16 @@ const router = createBrowserRouter([
       {
         path:"/",
         element:<Home/>
+      },
+      // {
+      //   path:"single/:productId",
+      //   element:<SingleProduct/>,
+      //   loader:({})=> 
+      // },
+      {
+        path:"/*",
+        element:<NotFound />
+        
       }
     ]
   },

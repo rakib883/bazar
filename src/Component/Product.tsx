@@ -6,6 +6,7 @@ import { FaShoppingCart } from "react-icons/fa";
 import { CiHeart } from "react-icons/ci";
 import { CiSearch } from "react-icons/ci";
 import { GoGitCompare } from "react-icons/go";
+import { Link } from 'react-router-dom';
 function Product() {
     // const [product,setProduct] = useState([])
     // fetch("https://fakestoreapiserver.reactbd.com/products")
@@ -23,9 +24,9 @@ function Product() {
    const {data,error,isLoading } = useSWR("https://fakestoreapiserver.reactbd.com/products",fetcher)
     console.log(data)
 
-    const singleData = (id)=>{
-           console.log(id)
-    }
+    // const singleData = (id)=>{
+    //        console.log(id)
+    // }
   return (
     <div>
         <div className="header max-w-sm mx-auto my-8">
@@ -57,7 +58,7 @@ function Product() {
                       <div key={items?._id} className="border-[1px] border-[#E5E7EB]  group">
                          <div className="image-area h-96 overflow-hidden relative">
                             <img className="h-full w-full group-hover:scale-125 cursor-pointer duration-300"  src={items.image} alt="" />
-                            <div onClick={(id)=>singleData(items?._id)} className="status group-hover:top-0 duration-300 bg-black/20 absolute top-[100%] w-full h-full ">
+                            <Link to={`/single/${items._id}`}   className="status group-hover:top-0 duration-300 bg-black/20 absolute top-[100%] w-full h-full ">
                                 <div className="social-icon flex items-center justify-center min-h-screen">
                                     <ul className="flex gap-2">
                                         <li className="bg-white p-2"><FaShoppingCart className="text-[26px]" /></li>
@@ -68,7 +69,7 @@ function Product() {
                                 </div> 
 
 
-                            </div>
+                            </Link>
                          </div>
                          <div className="image-des px-2 pt-2 flex items-center justify-between">
                             <div className="product-name">
