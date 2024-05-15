@@ -3,19 +3,32 @@ import logo from "../../src/assets/download.png"
 import { Link } from "react-router-dom"
 import cart from "../assets/cart.png"
 import { FaUserLarge } from "react-icons/fa6";
-import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+
+
+
+
+
+
+
+
 function Header() {
-    const menuItems = [
-        {name : "Home",path:"/"},
-        {name : "Page",path:"/page"},
-        {name : "Shop",path:"/shop"},
-        {name : "Element",path:"/element"},
-        {name : "Blog",path:"/blog"},
-    ]
+    //    menu area start
+        const menuItems = [
+            {name : "Home",path:"/"},
+            {name : "Page",path:"/page"},
+            {name : "Shop",path:"/shop"},
+            {name : "Element",path:"/element"},
+            {name : "Blog",path:"/blog"},
+        ]
+    //    menu area end
 
+    // fire base area start
+    // fire base area end
    
-
-   
+  
+    const showingCardIconData = useSelector((item)=>item.toCartData.addCart) 
+    console.log(showingCardIconData.length)
   return (
     <div  className="parent border-b-2 sticky z-50 top-0 bg-white">
         <Container className="">
@@ -28,13 +41,18 @@ function Header() {
                         ))
                     }</div>
                     <div className="user-area   flex items-center lg:gap-1 md:gap-8">
-                        <div className="cart-area w-6 cursor-pointer relative">
+                        <Link to="/cart" className="cart-area w-6 cursor-pointer relative">
                             <img src={cart} alt="" />
-                            <div className="count absolute top-1 left-[8px]">0</div>
-                        </div>
-                        <div className="user-area cursor-pointer flex items-center font-mainFont">
-                           <FaUserLarge className="w-10 text-black" />
-                           <p className="text-black font-bold text-base">Login</p>
+                            <div className="count absolute top-1 left-[8px]">{showingCardIconData.length}</div>
+                        </Link>
+                        <div className="">
+                             {
+        
+                             <Link to="/login"  className="user-area  cursor-pointer flex items-center font-mainFont">
+                                <FaUserLarge className="w-10 text-black" />
+                                <p className="text-black font-bold text-base">Login/Register</p>
+                             </Link> 
+                            } 
                         </div>
                     </div>
                 </div>

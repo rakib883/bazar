@@ -12,7 +12,8 @@ export default {
       backgroundImage: {
         'logo': "url('./src/assets/download.png')",
         "cart" : "url('./src/assets/cart.png')",
-         "pament":"url('./src/assets/pament.png')"
+         "pament":"url('./src/assets/pament.png')",
+         "login":"url('./src/assets/login.jpg')"
       },
     },
   },

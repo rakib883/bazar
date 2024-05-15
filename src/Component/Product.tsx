@@ -1,32 +1,22 @@
 import React, { useState } from 'react'
 import Container from './Container'
-import axios from 'axios';
-import useSWR from 'swr'
 import { FaShoppingCart } from "react-icons/fa";
-import { CiHeart } from "react-icons/ci";
-import { CiSearch } from "react-icons/ci";
-import { GoGitCompare } from "react-icons/go";
 import { Link } from 'react-router-dom';
+import { cartData } from '../Redux/counterSlice';
+import { useDispatch } from 'react-redux';
+import { ToastContainer, toast } from 'react-toastify';
+
+
+
+
 function Product() {
-    // const [product,setProduct] = useState([])
-    // fetch("https://fakestoreapiserver.reactbd.com/products")
-    //      .then(res=>res.json())
-    //      .then(res=>setProduct(res))
-
-    //      console.log(product)
-
-
-    const fetcher = async(...args)=>{
-        const res = await fetch(...args);
-        const data = await res.json();
-        return data;
-    }
-   const {data,error,isLoading } = useSWR("https://fakestoreapiserver.reactbd.com/products",fetcher)
-    console.log(data)
-
-    // const singleData = (id)=>{
-    //        console.log(id)
-    // }
+    const dispatch = useDispatch()
+  
+     const [product,setProduct] = useState([])
+     fetch("https://fakestoreapi.com/products")
+          .then(res=>res.json())
+          .then(res=>setProduct(res))
+  
   return (
     <div>
         <div className="header max-w-sm mx-auto my-8">
@@ -46,7 +36,48 @@ function Product() {
         {/* product area start */}
         <div className="product-area">
            <Container>
-              <div className="product grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4 my-8">
+              <div className="all-content grid gap-8  my-8 md:grid-cols-4 lg:grid-cols-4 grid-cols-1">
+                  {
+                    product.map((item)=>
+                      <div key={item.id} className="main-conatiner border-[1px] border-[gray] cursor-pointer ">
+                         <Link to={`/product/${item?.id}`}>
+                            <div  className="image-area max-h-[300px] object-cover  overflow-hidden">
+                                <img className="h-[300px] hover:scale-125 duration-300 w-full" src={item?.image} alt="" />
+                            </div>
+                         </Link>
+                          <div className="title  px-2 ">
+                              <p className="font-semibold text-[16px] text-black">{
+                              item?.title.length > 25? item?.title.slice(0,25) : item?.title
+                              
+                              }</p>
+                          </div>
+                          <div className=" flex flex-col gap-2">
+                            <div className="prize-area group bottom-0 w-full group  hover:bg-[#3749BB] duration-300 bg-[#F1F3F5] py-2 text-center flex justify-center items-center">
+                                <p className="icon group-hover:text-white flex items-center gap-4 font-semibold ">${item?.price}</p>
+                            </div>
+                            <div 
+                              onClick={()=>dispatch(cartData({
+                                   id:item?.id,
+                                   image:item?.image,
+                                   title:item?.title,
+                                   prize:item?.price,
+                                   quentity: 1
+                                   
+                              })) 
+
+                              && toast.success(`${item.title} is added`)
+                            }
+                            className="prize-area bottom-0 w-full group  hover:bg-[#3749BB] duration-300 bg-[#F1F3F5] py-2 text-center flex justify-center items-center">
+                                <div className="icon flex items-center gap-4 font-semibold ">
+                                    <FaShoppingCart className="text-black text-md  group-hover:text-white" /> <p className="hover:text-white">Buy now</p>
+                                </div>
+                            </div> 
+                          </div>
+                      </div>
+                    )
+                  }
+              </div>
+              {/* <div className="product grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4 my-8">
                   {
                     isLoading ? 
                      <div className="loding-area max-w-md mx-auto my-20 bg-red-600">
@@ -93,9 +124,10 @@ function Product() {
                        <p className="text-center ">some thing error</p>
                     </div> : ""
                   }
-              </div>
+              </div> */}
            </Container>
         </div>
+        <ToastContainer />
         {/* product area end */}
     </div>
   )
