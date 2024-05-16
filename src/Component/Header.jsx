@@ -58,7 +58,7 @@ function Header() {
                                     </div>
                                 </div>
                                 :
-                                <Link to={`${profileData} ? "/" : "/login"`}  className="user-area  cursor-pointer flex items-center font-mainFont">
+                                <Link to="/login"  className="user-area  cursor-pointer flex items-center font-mainFont">
                                     <FaUserLarge className="w-10 text-black" />
                                     <p className="text-black font-bold text-base">Login/Register</p>
                                 </Link> 
