@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import {  useDispatch, useSelector } from 'react-redux'
 import { FaXmark } from "react-icons/fa6";
-import { decrement, deletData, incrementCart } from '../Redux/counterSlice';
+import { decrement, deletData, incrementCart, resetArry } from '../Redux/counterSlice';
 
 
 
@@ -21,10 +21,12 @@ function CartPage() {
     })
     setTotalAmount(price)
   },[cartPageData])
+
+  const resetHandeler = useDispatch()
   return (
     <div className="flex gap-4 my-8">
        <div className="product-area flex gap-4">
-       <div className="main-area flex flex-col gap-4">
+        <div className="main-area flex flex-col gap-4">
            {
               cartPageData.map((item)=>
                 <div className="all-data mx-8 flex items-center justify-between gap-12  ">
@@ -72,13 +74,18 @@ function CartPage() {
                      <div className="prize-area">
                         <p>{parseInt(item?.prize*item.quentity)}</p>
                      </div>
-
+                    
                 </div>
-              
+                
               )
            }
+           <div onClick={()=>resetHandeler(resetArry())} className="reset-area">
+              <div className="reset-button cursor-pointer py-2 bg-black w-40 mx-8 text-white text-center font-semibold text-md">
+                 <p>Reset cart</p>
+              </div>
+           </div>
        </div>
-       </div>
+      </div>
        <div className="money-area">
         <div className="aal-content">
             <div className="header">
@@ -86,6 +93,18 @@ function CartPage() {
             </div>
             <div className="subtotal flex gap-4 font-semibold font-mainFont my-4">
               <h1>Sub total :</h1> <p>{total}</p>
+            </div>
+            <div className="shiping flex gap-4 font-mainFont text-md">
+              <h1>Shiping area : </h1>
+              <p>Road : 18,House : 15, bannani block d,Dhaka</p>
+            </div>
+            <div className="border w-full h-[1px] my-4"></div>
+            <div className="final-prize flex justify-between font-semibold font-mainFont text-md">
+               <p>Subtotal</p>
+               <p>${total}</p>
+            </div>
+            <div className="cheickout py-2 cursor-pointer bg-black mt-2 text-white text-center font-semibold text-md">
+                <p>Order now</p>
             </div>
         </div>
        </div>

@@ -33,6 +33,9 @@ export const counterSlice = createSlice({
       },
       userInfo:(state,action)=>{
         state._UserImpl = action.payload
+      },
+      resetArry:(state,action)=>{
+           state.addCart = []
       }
       
 
@@ -40,6 +43,6 @@ export const counterSlice = createSlice({
 })  
 
 // Action creators are generated for each case reducer function
-export const { cartData,deletData,incrementCart,decrement,userInfo } = counterSlice.actions
+export const { cartData,deletData,incrementCart,decrement,userInfo,resetArry} = counterSlice.actions
 
 export default counterSlice.reducer
