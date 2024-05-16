@@ -23,17 +23,15 @@ function Header() {
         ]
     //    menu area end
 
-    // fire base area start
-    // fire base area end
-   
-  
+    
+    const profileData = useSelector((item)=>item.toCartData._UserImpl)
     const showingCardIconData = useSelector((item)=>item.toCartData.addCart) 
-    console.log(showingCardIconData.length)
+    console.log(profileData)
   return (
     <div  className="parent border-b-2 sticky z-50 top-0 bg-white">
         <Container className="">
             <div className="lg:flex flex justify-between items-center lg:justify-between py-6">
-                <div className="logo-area w-[120px]"><img src={logo} alt="" /></div>
+                <Link to="/" className="logo-area w-[120px]"><img src={logo} alt="" /></Link>
                 <div className="menu-main flex items-center gap-8 ">
                     <div className="menu-area flex items-center gap-8 md:inline-flex lg:gap-8 hidden">{
                         menuItems.map((item)=>(
@@ -47,11 +45,23 @@ function Header() {
                         </Link>
                         <div className="">
                              {
-        
-                             <Link to="/login"  className="user-area  cursor-pointer flex items-center font-mainFont">
-                                <FaUserLarge className="w-10 text-black" />
-                                <p className="text-black font-bold text-base">Login/Register</p>
-                             </Link> 
+                               profileData ?
+                                <div className="user-profile cursor-pointer">
+                                    <div className="content flex items-center gap-4">
+                                        <div className="profile-picture">
+                                            <img className="h-10 w-10 rounded-full" src={profileData.image} alt="" />
+                                        </div>
+                                        <div className="profile leading-[15px]">
+                                           <h1>{profileData.name}</h1>
+                                           <h1>{profileData.email}</h1>
+                                        </div>
+                                    </div>
+                                </div>
+                                :
+                                <Link to={`${profileData} ? "/" : "/login"`}  className="user-area  cursor-pointer flex items-center font-mainFont">
+                                    <FaUserLarge className="w-10 text-black" />
+                                    <p className="text-black font-bold text-base">Login/Register</p>
+                                </Link> 
                             } 
                         </div>
                     </div>

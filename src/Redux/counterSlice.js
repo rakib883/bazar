@@ -20,15 +20,26 @@ export const counterSlice = createSlice({
               item.quentity ++
              }
       },
+      decrement:(state,action)=>{
+          const item = state.addCart.find((item)=>item?.id === action.payload.id)
+             if(item.quentity === 1){
+               item.quentity = 1
+             }else{
+              item.quentity --
+             }
+      },
       deletData:(state,action)=>{
          state.addCart = state.addCart.filter((item)=>item.id !== action.payload)
+      },
+      userInfo:(state,action)=>{
+        state._UserImpl = action.payload
       }
       
 
   }
-})
+})  
 
 // Action creators are generated for each case reducer function
-export const { cartData,deletData,incrementCart } = counterSlice.actions
+export const { cartData,deletData,incrementCart,decrement,userInfo } = counterSlice.actions
 
 export default counterSlice.reducer

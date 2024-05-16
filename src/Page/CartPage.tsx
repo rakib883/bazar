@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import {  useDispatch, useSelector } from 'react-redux'
 import { FaXmark } from "react-icons/fa6";
-import { deletData, incrementCart } from '../Redux/counterSlice';
+import { decrement, deletData, incrementCart } from '../Redux/counterSlice';
 
 
 
@@ -9,7 +9,7 @@ function CartPage() {
   const cartPageData = useSelector((state)=>state.toCartData.addCart)
   const delDispatch = useDispatch()
   const incrmentDispatch = useDispatch()
-  
+  const decrementDispatch = useDispatch()
 
   const [total,setTotalAmount] = useState()
 
@@ -58,7 +58,15 @@ function CartPage() {
                              }))}
                             className="font-mainFont text-md font-semibold cursor-pointer text-xl">+</div>
                             <div className="font-mainFont text-md font-semibold cursor-pointer text-xl">{item.quentity}</div>
-                            <div className="font-mainFont text-md font-semibold cursor-pointer text-xl">-</div>
+                            <div 
+                                onClick={()=>decrementDispatch(decrement({
+                                  id:item?.id,
+                                  image:item?.image,
+                                  title:item?.title,
+                                  prize:item?.price,
+                                  quentity: 1
+                                }))}
+                            className="font-mainFont text-md font-semibold cursor-pointer text-xl">-</div>
                         </div>
                      </div>
                      <div className="prize-area">

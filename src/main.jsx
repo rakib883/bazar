@@ -11,17 +11,17 @@ import App from './App';
 import Home from './Page/Home';
 import SingleProduct from './Page/SingleProduct';
 import NotFound from './Page/NotFound';
-import Account from './Page/Account';
 import CartPage from './Page/CartPage';
 import { Provider } from 'react-redux';
 import { persister, store } from './Redux/store';
 import { PersistGate } from 'redux-persist/integration/react';
+import Login from './Page/Login';
 
 
 const router = createBrowserRouter([
   {
     path:"/login",
-    element:<Account/>
+    element:<Login/>
   },
   {
     path: "/",

@@ -1,11 +1,37 @@
-
+import { getAuth } from "firebase/auth";
 import { FaGoogle } from "react-icons/fa";
-function Account() {
+import { GoogleAuthProvider ,signInWithPopup} from "firebase/auth";
+import app from "../Firebase/firebaseConfig";
+import { useDispatch } from "react-redux";
+import { userInfo } from "../Redux/counterSlice";
+import { useNavigate } from "react-router-dom";
+function Login() {
   // fire base area start
- 
- 
+  const auth = getAuth(app);
+  const provider = new GoogleAuthProvider();
+  const userDispatch = useDispatch()
+  const navaget = useNavigate("")
 
 
+  const googleHandeler = ()=>{
+    signInWithPopup(auth,provider)
+         .then((result)=>{
+           const user = result.user;
+           console.log(user)
+           userDispatch(userInfo({
+               name :user.displayName,
+               email :user.email,
+               image:user.photoURL,
+
+           }));
+           setTimeout(()=>{
+            navaget("/")
+           },1500)
+
+         }).catch(error=>{
+           console.log(error)
+         })
+  }
   
   // fire base area end
 
@@ -25,7 +51,9 @@ function Account() {
                Login
             </div>
               <div className="social-area flex justify-center my-4 ">
-                <div className="item cursor-pointer bg-slate-500 rounded-full items-center justify-center flex h-8 w-8  ">
+                <div
+                   onClick={googleHandeler}
+                className="item cursor-pointer bg-slate-500 rounded-full items-center justify-center flex h-8 w-8  ">
                   <FaGoogle className="text-white text-md"/>
                 </div>
              
@@ -45,4 +73,4 @@ function Account() {
   )
 }
 
-export default Account
+export default Login
